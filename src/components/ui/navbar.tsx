@@ -23,7 +23,8 @@ import {
   IconSun,
 } from '@tabler/icons-react';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 
 const categories: { link: string; label: string }[] = [
   {
@@ -147,6 +148,17 @@ const Navbar = () => {
   const { classes, cx } = useStyles();
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const dark = colorScheme === 'dark';
+  const { route } = useRouter();
+
+  useEffect(() => {
+    if (route === '/') {
+      setActive('home');
+    } else if (route === '/pc-builder') {
+      setActive('pc-builder');
+    } else if (route.includes('/categories/')) {
+      setActive(route.split('/')[2]);
+    }
+  }, [route]);
 
   const items = (
     <>
@@ -185,14 +197,7 @@ const Navbar = () => {
         position="top-start"
       >
         <Menu.Target>
-          <Flex
-            align={'center'}
-            gap={4}
-            className={cx(classes.link, {
-              [classes.linkActive]: categoriesNames.includes(active),
-            })}
-            style={{ cursor: 'pointer' }}
-          >
+          <Flex align={'center'} gap={4} style={{ cursor: 'pointer' }}>
             <Text fw={400}>Categories</Text>
             <IconChevronDown size={15} />
           </Flex>
@@ -204,7 +209,8 @@ const Navbar = () => {
               component={Link}
               href={category.link}
               className={cx(classes.link, {
-                [classes.linkActive]: active === category.label,
+                [classes.linkActive]:
+                  active.toLowerCase() === category.label.toLowerCase(),
               })}
               style={{ fontWeight: 400 }}
               onClick={() => {
