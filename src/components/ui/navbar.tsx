@@ -261,7 +261,7 @@ const Navbar = () => {
             />
             <Text>{data.user.name}</Text>
           </Group>
-          <Button onClick={() => signOut()}>Sign Out</Button>
+          <Button onClick={() => signOut({ redirect: false })}>Sign Out</Button>
         </>
       ) : (
         <Button onClick={() => signIn()}>Sign In</Button>
