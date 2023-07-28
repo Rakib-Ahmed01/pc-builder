@@ -1,11 +1,14 @@
 import {
   ActionIcon,
   Affix,
+  Avatar,
   Burger,
+  Button,
   Container,
   Flex,
   Group,
   Header,
+  Loader,
   Menu,
   Paper,
   Text,
@@ -22,6 +25,7 @@ import {
   IconMoonStars,
   IconSun,
 } from '@tabler/icons-react';
+import { signIn, signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -149,6 +153,9 @@ const Navbar = () => {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const dark = colorScheme === 'dark';
   const { asPath } = useRouter();
+  const { data, status } = useSession();
+
+  console.log(data);
 
   useEffect(() => {
     if (asPath === '/') {
@@ -161,6 +168,10 @@ const Navbar = () => {
       setActive(asPath.split('/')[2]);
     }
   }, [asPath]);
+
+  if (status === 'loading') {
+    return <Loader sx={{ w: '100vw', h: '100vh', zIndex: 10 }} />;
+  }
 
   const items = (
     <>
@@ -239,6 +250,22 @@ const Navbar = () => {
           ))}
         </Menu.Dropdown>
       </Menu>
+      {data?.user ? (
+        <>
+          <Group>
+            <Avatar
+              src={data.user.image}
+              alt={data.user.name as string}
+              radius={'xl'}
+              size={30}
+            />
+            <Text>{data.user.name}</Text>
+          </Group>
+          <Button onClick={() => signOut()}>Sign Out</Button>
+        </>
+      ) : (
+        <Button onClick={() => signIn()}>Sign In</Button>
+      )}
     </>
   );
 

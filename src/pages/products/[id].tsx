@@ -56,7 +56,7 @@ const Product = ({
       </Title>
       <Card
         sx={(theme) => ({
-          maxWidth: theme.breakpoints.sm,
+          // maxWidth: theme.breakpoints.sm,
           margin: '0 auto',
         })}
         withBorder

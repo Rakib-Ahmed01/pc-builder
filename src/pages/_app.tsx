@@ -4,6 +4,7 @@ import {
   ColorSchemeProvider,
   MantineProvider,
 } from '@mantine/core';
+import { SessionProvider } from 'next-auth/react';
 import { AppProps } from 'next/app';
 import { Karla } from 'next/font/google';
 import Head from 'next/head';
@@ -12,7 +13,10 @@ import { useState } from 'react';
 const karla = Karla({ subsets: ['latin'] });
 
 export default function App(props: AppProps) {
-  const { Component, pageProps } = props;
+  const {
+    Component,
+    pageProps: { session, ...pageProps },
+  } = props;
 
   const [colorScheme, setColorScheme] = useState<ColorScheme>('dark');
   const toggleColorScheme = (value?: ColorScheme) =>
@@ -40,9 +44,11 @@ export default function App(props: AppProps) {
             fontFamily: karla.style.fontFamily,
           }}
         >
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
+          <SessionProvider session={session}>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </SessionProvider>
         </MantineProvider>
       </ColorSchemeProvider>
     </>
