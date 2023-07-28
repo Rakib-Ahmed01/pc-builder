@@ -1,3 +1,4 @@
+import Layout from '@/components/layout';
 import {
   ColorScheme,
   ColorSchemeProvider,
@@ -35,11 +36,13 @@ export default function App(props: AppProps) {
           withGlobalStyles
           withNormalizeCSS
           theme={{
-            colorScheme: 'dark',
+            colorScheme,
             fontFamily: karla.style.fontFamily,
           }}
         >
-          <Component {...pageProps} />
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
         </MantineProvider>
       </ColorSchemeProvider>
     </>
