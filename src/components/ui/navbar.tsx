@@ -1,4 +1,6 @@
 import {
+  ActionIcon,
+  Affix,
   Burger,
   Container,
   Flex,
@@ -6,8 +8,8 @@ import {
   Header,
   Menu,
   Paper,
-  Switch,
   Text,
+  Tooltip,
   Transition,
   createStyles,
   rem,
@@ -143,7 +145,8 @@ const Navbar = () => {
   const [opened, { close, toggle }] = useDisclosure(false);
   const [active, setActive] = useState('home');
   const { classes, cx, theme } = useStyles();
-  const { toggleColorScheme } = useMantineColorScheme();
+  const { colorScheme, toggleColorScheme } = useMantineColorScheme();
+  const dark = colorScheme === 'dark';
 
   const items = (
     <>
@@ -207,19 +210,6 @@ const Navbar = () => {
           ))}
         </Menu.Dropdown>
       </Menu>
-      <Switch
-        onClick={() => toggleColorScheme()}
-        onLabel={
-          <IconSun size="1rem" stroke={2.5} color={theme.colors.yellow[4]} />
-        }
-        offLabel={
-          <IconMoonStars
-            size="1rem"
-            stroke={2.5}
-            color={theme.colors.blue[6]}
-          />
-        }
-      />
     </>
   );
 
@@ -243,6 +233,26 @@ const Navbar = () => {
             </Paper>
           )}
         </Transition>
+        <Affix position={{ bottom: rem(20), right: rem(20) }}>
+          <Transition transition="slide-up" mounted>
+            {(transitionStyles) => (
+              <ActionIcon
+                variant="outline"
+                color={dark ? 'yellow' : 'blue'}
+                onClick={() => toggleColorScheme()}
+                style={transitionStyles}
+              >
+                <Tooltip label="Toggle color theme" position="left" offset={12}>
+                  {dark ? (
+                    <IconSun size="1.1rem" />
+                  ) : (
+                    <IconMoonStars size="1.1rem" />
+                  )}
+                </Tooltip>
+              </ActionIcon>
+            )}
+          </Transition>
+        </Affix>
       </Container>
     </Header>
   );
