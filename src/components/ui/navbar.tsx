@@ -188,6 +188,19 @@ const Navbar = () => {
       >
         PC Builder
       </Link>
+      <Link
+        key={'all-products'}
+        href={'/all-products'}
+        className={cx(classes.link, {
+          [classes.linkActive]: active === 'all-products',
+        })}
+        onClick={() => {
+          setActive('all-products');
+          close();
+        }}
+      >
+        All Products
+      </Link>
 
       <Menu
         width={140}
