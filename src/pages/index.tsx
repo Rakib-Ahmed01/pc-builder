@@ -13,6 +13,7 @@ export type Product = {
   averageRating: number;
   reviews: never[];
   price: number;
+  description: string;
 };
 
 export default function Home({

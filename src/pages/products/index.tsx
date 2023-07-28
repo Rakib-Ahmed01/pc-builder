@@ -12,8 +12,8 @@ import {
   Title,
 } from '@mantine/core';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
-import { Product } from '.';
-import { products } from './api/products';
+import { Product } from '..';
+import { products } from '../api/products';
 
 export const getStaticProps: GetStaticProps<{
   products: Product[];

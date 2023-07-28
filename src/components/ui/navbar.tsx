@@ -155,6 +155,8 @@ const Navbar = () => {
       setActive('home');
     } else if (asPath === '/pc-builder') {
       setActive('pc-builder');
+    } else if (asPath.includes('/products/')) {
+      setActive('products');
     } else if (asPath.includes('/categories/')) {
       setActive(asPath.split('/')[2]);
     }
@@ -189,17 +191,17 @@ const Navbar = () => {
         PC Builder
       </Link>
       <Link
-        key={'all-products'}
-        href={'/all-products'}
+        key={'products'}
+        href={'/products'}
         className={cx(classes.link, {
-          [classes.linkActive]: active === 'all-products',
+          [classes.linkActive]: active === 'products',
         })}
         onClick={() => {
-          setActive('all-products');
+          setActive('products');
           close();
         }}
       >
-        All Products
+        Products
       </Link>
 
       <Menu

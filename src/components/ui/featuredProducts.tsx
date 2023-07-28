@@ -11,6 +11,7 @@ import {
   Text,
   Title,
 } from '@mantine/core';
+import Link from 'next/link';
 
 const FeaturedProducts = ({ products }: { products: Product[] }) => {
   return (
@@ -27,7 +28,7 @@ const FeaturedProducts = ({ products }: { products: Product[] }) => {
         </Title>
       </Group>
       <Grid gutterXs="md" gutterMd="xl" gutterXl={50}>
-        {products.map((product) => {
+        {products.map((product, i) => {
           const { averageRating, category, keyFeatures, name, price, status } =
             product || {};
           return (
@@ -53,7 +54,13 @@ const FeaturedProducts = ({ products }: { products: Product[] }) => {
                       Key Features: {keyFeatures.join(', ')}
                     </Text>
                   </Stack>
-                  <Button variant="light">Details</Button>
+                  <Button
+                    variant="light"
+                    component={Link}
+                    href={`/products/${i}`}
+                  >
+                    Details
+                  </Button>
                 </Stack>
               </Card>
             </Grid.Col>
