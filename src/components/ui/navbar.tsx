@@ -28,27 +28,27 @@ import { useState } from 'react';
 const categories: { link: string; label: string }[] = [
   {
     label: 'CPU',
-    link: 'categories/cpu',
+    link: '/categories/cpu',
   },
   {
     label: 'Motherboard',
-    link: 'categories/motherboard',
+    link: '/categories/motherboard',
   },
   {
     label: 'RAM',
-    link: 'categories/ram',
+    link: '/categories/ram',
   },
   {
     label: 'Power Supply',
-    link: 'categories/power-supply',
+    link: '/categories/power-supply',
   },
   {
     label: 'Storage',
-    link: 'categories/storage',
+    link: '/categories/storage',
   },
   {
     label: 'Monitor',
-    link: 'categories/monitor',
+    link: '/categories/monitor',
   },
 ];
 
@@ -109,7 +109,7 @@ const useStyles = createStyles((theme) => ({
         ? theme.colors.dark[0]
         : theme.colors.gray[7],
     fontSize: theme.fontSizes.sm,
-    fontWeight: 500,
+    // fontWeight: 500,
 
     '&:hover': {
       backgroundColor:
@@ -144,7 +144,7 @@ const useStyles = createStyles((theme) => ({
 const Navbar = () => {
   const [opened, { close, toggle }] = useDisclosure(false);
   const [active, setActive] = useState('home');
-  const { classes, cx, theme } = useStyles();
+  const { classes, cx } = useStyles();
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const dark = colorScheme === 'dark';
 
@@ -177,7 +177,13 @@ const Navbar = () => {
         PC Builder
       </Link>
 
-      <Menu width={125} key={'menu'}>
+      <Menu
+        width={140}
+        trigger="hover"
+        key={'menu'}
+        withinPortal
+        position="top-start"
+      >
         <Menu.Target>
           <Flex
             align={'center'}
@@ -200,6 +206,7 @@ const Navbar = () => {
               className={cx(classes.link, {
                 [classes.linkActive]: active === category.label,
               })}
+              style={{ fontWeight: 400 }}
               onClick={() => {
                 setActive(category.label);
                 close();
