@@ -148,17 +148,17 @@ const Navbar = () => {
   const { classes, cx } = useStyles();
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   const dark = colorScheme === 'dark';
-  const { route } = useRouter();
+  const { asPath } = useRouter();
 
   useEffect(() => {
-    if (route === '/') {
+    if (asPath === '/') {
       setActive('home');
-    } else if (route === '/pc-builder') {
+    } else if (asPath === '/pc-builder') {
       setActive('pc-builder');
-    } else if (route.includes('/categories/')) {
-      setActive(route.split('/')[2]);
+    } else if (asPath.includes('/categories/')) {
+      setActive(asPath.split('/')[2]);
     }
-  }, [route]);
+  }, [asPath]);
 
   const items = (
     <>
@@ -210,7 +210,8 @@ const Navbar = () => {
               href={category.link}
               className={cx(classes.link, {
                 [classes.linkActive]:
-                  active.toLowerCase() === category.label.toLowerCase(),
+                  active.toLowerCase() ===
+                  category.label.toLowerCase().replace(' ', '-'),
               })}
               style={{ fontWeight: 400 }}
               onClick={() => {

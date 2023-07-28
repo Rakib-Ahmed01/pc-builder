@@ -33,7 +33,7 @@ const FeaturedCategories = ({ categories }: { categories: string[] }) => {
                 m={0}
                 p={0}
                 component={Link}
-                href={`/categories/${category.toLowerCase()}`}
+                href={`/categories/${category.toLowerCase().replace(' ', '-')}`}
               >
                 <Card.Section>
                   <Skeleton h={180} animate={false} />
