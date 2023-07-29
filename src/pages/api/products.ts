@@ -188,6 +188,5 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   if (query?.limit) {
     products = products.slice(0, Number(query?.limit) || 10000).map((p) => p);
   }
-  console.log(products.length);
   res.status(200).json(products);
 }

@@ -2,7 +2,9 @@ import {
   Badge,
   Card,
   Container,
+  Divider,
   Group,
+  Paper,
   Rating,
   Skeleton,
   Stack,
@@ -51,16 +53,18 @@ const Product = ({
   } = product || {};
   return (
     <Container>
-      <Title order={3} fw={400} fz={26} ta={'center'} mb={8}>
-        {product && product.name}
-      </Title>
-      <Card
-        sx={(theme) => ({
-          // maxWidth: theme.breakpoints.sm,
-          margin: '0 auto',
-        })}
-        withBorder
-      >
+      <Group mb={'sm'} mt={'lg'}>
+        <Divider
+          size={'lg'}
+          color="blue.6"
+          w={75}
+          sx={(theme) => ({ borderRadius: theme.spacing.lg })}
+        />
+        <Title order={3} fw={400} fz={26}>
+          {name}
+        </Title>
+      </Group>
+      <Card withBorder>
         <Card.Section>
           <Skeleton h={250} animate={false} sx={{ borderRadius: 0 }} />
         </Card.Section>
@@ -89,6 +93,49 @@ const Product = ({
           </Stack>
         </Stack>
       </Card>
+      <Group mb={'sm'} mt={'lg'}>
+        <Divider
+          size={'lg'}
+          color="blue.6"
+          w={75}
+          sx={(theme) => ({ borderRadius: theme.spacing.lg })}
+        />
+        <Title order={3} fw={400} fz={26}>
+          Reviews of {name}
+        </Title>
+      </Group>
+      <Stack>
+        <Paper withBorder p={'md'}>
+          <Group position="apart">
+            <Group>
+              <Skeleton w={40} height={40} animate={false} radius={'xl'} />
+              <Text>Rakib Ahmed</Text>
+            </Group>
+            <Rating value={4.5} fractions={10} />
+          </Group>
+          <Text mt={'xs'}>This is a good product</Text>
+        </Paper>
+        <Paper withBorder p={'md'}>
+          <Group position="apart">
+            <Group>
+              <Skeleton w={40} height={40} animate={false} radius={'xl'} />
+              <Text>Sabbir Ahmed</Text>
+            </Group>
+            <Rating value={4.8} fractions={10} />
+          </Group>
+          <Text mt={'xs'}>Awesome product</Text>
+        </Paper>
+        <Paper withBorder p={'md'}>
+          <Group position="apart">
+            <Group>
+              <Skeleton w={40} height={40} animate={false} radius={'xl'} />
+              <Text>Rafin Ahmed</Text>
+            </Group>
+            <Rating value={5} fractions={10} />
+          </Group>
+          <Text mt={'xs'}>The Ultimate Gaming Companion</Text>
+        </Paper>
+      </Stack>
     </Container>
   );
 };

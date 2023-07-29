@@ -25,7 +25,7 @@ export default function Home({
   categories: string[];
 }) {
   return (
-    <main>
+    <main style={{ position: 'relative' }}>
       <Container>
         <FeaturedProducts products={products} />
         <FeaturedCategories categories={categories} />

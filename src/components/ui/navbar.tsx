@@ -155,8 +155,6 @@ const Navbar = () => {
   const { asPath } = useRouter();
   const { data, status } = useSession();
 
-  console.log(data);
-
   useEffect(() => {
     if (asPath === '/') {
       setActive('home');
@@ -170,7 +168,7 @@ const Navbar = () => {
   }, [asPath]);
 
   if (status === 'loading') {
-    return <Loader sx={{ w: '100vw', h: '100vh', zIndex: 10 }} />;
+    return <Loader top={'50%'} pos={'absolute'} right={'50%'} z={100} />;
   }
 
   const items = (
