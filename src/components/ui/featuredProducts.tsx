@@ -1,4 +1,4 @@
-import { TProduct } from '@/pages';
+import { TProduct } from '@/types/product';
 import { Divider, Grid, Group, Title } from '@mantine/core';
 import Product from './product';
 
@@ -19,7 +19,7 @@ const FeaturedProducts = ({ products }: { products: TProduct[] }) => {
       <Grid gutterXs="md" gutterMd="xl" gutterXl={50}>
         {products.map((product) => {
           return (
-            <Grid.Col sm={6} key={product.id}>
+            <Grid.Col sm={6} key={product._id}>
               <Product product={product} type="home" />
             </Grid.Col>
           );

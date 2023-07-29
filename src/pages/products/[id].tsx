@@ -1,3 +1,5 @@
+import { TProduct } from '@/types/product';
+import { getProductById, getProducts } from '@/util/products';
 import {
   Badge,
   Card,
@@ -11,43 +13,39 @@ import {
   Text,
   Title,
 } from '@mantine/core';
-import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
-import { TProduct } from '..';
-import { products } from '../api/products';
+import { GetStaticPaths, GetStaticPropsContext, PreviewData } from 'next';
+import { ParsedUrlQuery } from 'querystring';
 
-export const getStaticPaths: GetStaticPaths = () => {
+export const getStaticPaths: GetStaticPaths = async () => {
+  const products = await getProducts();
+
   return {
     paths: products.map((p) => ({
-      params: { id: p.id.toString() },
+      params: { id: p?._id?.toString() },
     })),
     fallback: false,
   };
 };
 
-export const getStaticProps: GetStaticProps<{
-  product: TProduct;
-}> = (context) => {
+export const getStaticProps = async (
+  context: GetStaticPropsContext<ParsedUrlQuery, PreviewData>
+) => {
+  const product = await getProductById(context?.params?.id as string);
   return {
     props: {
-      product: products.filter(
-        (p) => p.id.toString() === context?.params?.id
-      )[0],
+      product: JSON.parse(JSON.stringify(product)),
     },
   };
 };
 
-const Product = ({
-  product,
-}: InferGetStaticPropsType<typeof getStaticProps>) => {
+const Product = ({ product }: { product: TProduct }) => {
   const {
     averageRating,
     category,
-    image,
     individualRating,
     keyFeatures,
     name,
     price,
-    reviews,
     status,
     description,
   } = product || {};

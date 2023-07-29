@@ -1,4 +1,4 @@
-import { TProduct } from '@/pages';
+import { TProduct } from '@/types/product';
 import {
   Badge,
   Button,
@@ -18,7 +18,7 @@ const Product = ({
   product: TProduct;
   type: 'home' | 'categories';
 }) => {
-  const { averageRating, category, keyFeatures, name, price, status, id } =
+  const { averageRating, category, keyFeatures, name, price, status, _id } =
     product || {};
   return (
     <Card withBorder w={'100%'} m={0} p={0}>
@@ -41,7 +41,7 @@ const Product = ({
           <Text color="dimmed">Key Features: {keyFeatures.join(', ')}</Text>
         </Stack>
         {type === 'home' ? (
-          <Button variant="light" component={Link} href={`/products/${id}`}>
+          <Button variant="light" component={Link} href={`/products/${_id}`}>
             Details
           </Button>
         ) : (

@@ -18,8 +18,6 @@ if (!dbName) {
   );
 }
 
-console.log({ dbName, uri });
-
 export async function connectToDatabase() {
   if (cachedClient && cachedDb) {
     return { client: cachedClient, db: cachedDb };

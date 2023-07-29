@@ -6,7 +6,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const { db } = await connectToDatabase();
-  const products = await db.collection('products').find({}).toArray();
+  const products = await db.collection('products').find({}).limit(0).toArray();
 
   res.status(200).json(products);
 }

@@ -1,15 +1,17 @@
 import Product from '@/components/ui/product';
+import { TProduct } from '@/types/product';
+import { getProducts } from '@/util/products';
 import { Container, Divider, Grid, Group, Title } from '@mantine/core';
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
-import { TProduct } from '..';
-import { products } from '../api/products';
 
 export const getStaticProps: GetStaticProps<{
   products: TProduct[];
-}> = () => {
+}> = async () => {
+  const products = await getProducts();
+
   return {
     props: {
-      products,
+      products: JSON.parse(JSON.stringify(products)),
     },
   };
 };
@@ -33,7 +35,7 @@ const AllProducts = ({
       <Grid gutterXs="md" gutterMd="xl" gutterXl={50}>
         {products.map((product) => {
           return (
-            <Grid.Col sm={6} key={product.id}>
+            <Grid.Col sm={6} key={product._id}>
               <Product product={product} type="home" />
             </Grid.Col>
           );

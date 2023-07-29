@@ -1,21 +1,8 @@
 import FeaturedCategories from '@/components/ui/featuredCategories';
 import FeaturedProducts from '@/components/ui/featuredProducts';
+import { TProduct } from '@/types/product';
+import { getCategories, getProducts } from '@/util/products';
 import { Container } from '@mantine/core';
-import { products } from './api/products';
-
-export type TProduct = {
-  name: string;
-  image: string;
-  category: string;
-  status: string;
-  keyFeatures: string[];
-  individualRating: number;
-  averageRating: number;
-  reviews: never[];
-  price: number;
-  description: string;
-  id: number;
-};
 
 export default function Home({
   products,
@@ -34,13 +21,14 @@ export default function Home({
   );
 }
 
-export function getStaticProps() {
+export async function getStaticProps() {
+  const products = await getProducts(6);
+  const categories = await getCategories();
+
   return {
     props: {
-      products: products.slice(0, 6),
-      categories: products
-        .filter((p, i) => (i % 2 === 0 ? p.category : false))
-        .map((p) => p.category),
+      products: JSON.parse(JSON.stringify(products)),
+      categories: JSON.parse(JSON.stringify(categories)),
     },
   };
 }
