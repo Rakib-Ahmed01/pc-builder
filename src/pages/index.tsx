@@ -1,3 +1,4 @@
+import Banner from '@/components/ui/banner';
 import FeaturedCategories from '@/components/ui/featuredCategories';
 import FeaturedProducts from '@/components/ui/featuredProducts';
 import { TProduct } from '@/types/product';
@@ -14,6 +15,7 @@ export default function Home({
   return (
     <main style={{ position: 'relative' }}>
       <Container>
+        <Banner />
         <FeaturedProducts products={products} />
         <FeaturedCategories categories={categories} />
       </Container>
