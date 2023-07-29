@@ -1,19 +1,8 @@
-import { Product } from '@/pages';
-import {
-  Badge,
-  Button,
-  Card,
-  Divider,
-  Grid,
-  Group,
-  Skeleton,
-  Stack,
-  Text,
-  Title,
-} from '@mantine/core';
-import Link from 'next/link';
+import { TProduct } from '@/pages';
+import { Divider, Grid, Group, Title } from '@mantine/core';
+import Product from './product';
 
-const FeaturedProducts = ({ products }: { products: Product[] }) => {
+const FeaturedProducts = ({ products }: { products: TProduct[] }) => {
   return (
     <>
       <Group mb={'sm'}>
@@ -28,41 +17,10 @@ const FeaturedProducts = ({ products }: { products: Product[] }) => {
         </Title>
       </Group>
       <Grid gutterXs="md" gutterMd="xl" gutterXl={50}>
-        {products.map((product, i) => {
-          const { averageRating, category, keyFeatures, name, price, status } =
-            product || {};
+        {products.map((product) => {
           return (
-            <Grid.Col sm={6} key={name}>
-              <Card withBorder w={'100%'} m={0} p={0}>
-                <Card.Section>
-                  <Skeleton h={180} animate={false} />
-                </Card.Section>
-                <Stack p={'md'} spacing={'xs'}>
-                  <Group>
-                    <Title order={4}> {name}</Title>
-                    {status === 'In Stock' ? (
-                      <Badge>{status}</Badge>
-                    ) : (
-                      <Badge color="red">{status}</Badge>
-                    )}
-                  </Group>
-                  <Stack spacing={4}>
-                    <Text color="dimmed">Price: ${price}</Text>
-                    <Text color="dimmed">Category: {category}</Text>
-                    <Text color="dimmed">Rating: {averageRating}</Text>
-                    <Text color="dimmed">
-                      Key Features: {keyFeatures.join(', ')}
-                    </Text>
-                  </Stack>
-                  <Button
-                    variant="light"
-                    component={Link}
-                    href={`/products/${i}`}
-                  >
-                    Details
-                  </Button>
-                </Stack>
-              </Card>
+            <Grid.Col sm={6} key={product.id}>
+              <Product product={product} type="home" />
             </Grid.Col>
           );
         })}

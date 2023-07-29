@@ -3,7 +3,7 @@ import FeaturedProducts from '@/components/ui/featuredProducts';
 import { Container } from '@mantine/core';
 import { products } from './api/products';
 
-export type Product = {
+export type TProduct = {
   name: string;
   image: string;
   category: string;
@@ -14,13 +14,14 @@ export type Product = {
   reviews: never[];
   price: number;
   description: string;
+  id: number;
 };
 
 export default function Home({
   products,
   categories,
 }: {
-  products: Product[];
+  products: TProduct[];
   categories: string[];
 }) {
   return (

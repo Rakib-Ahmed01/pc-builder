@@ -252,12 +252,12 @@ const Navbar = () => {
       </Menu>
       {data?.user ? (
         <>
-          <Group>
+          <Group spacing={6}>
             <Avatar
               src={data.user.image}
               alt={data.user.name as string}
               radius={'xl'}
-              size={30}
+              size={25}
             />
             <Text>{data.user.name}</Text>
           </Group>

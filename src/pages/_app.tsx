@@ -4,11 +4,11 @@ import {
   ColorSchemeProvider,
   MantineProvider,
 } from '@mantine/core';
+import { useLocalStorage } from '@mantine/hooks';
 import { SessionProvider } from 'next-auth/react';
 import { AppProps } from 'next/app';
 import { Karla } from 'next/font/google';
 import Head from 'next/head';
-import { useState } from 'react';
 
 const karla = Karla({ subsets: ['latin'] });
 
@@ -18,9 +18,13 @@ export default function App(props: AppProps) {
     pageProps: { session, ...pageProps },
   } = props;
 
-  const [colorScheme, setColorScheme] = useState<ColorScheme>('dark');
-  const toggleColorScheme = (value?: ColorScheme) =>
-    setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
+  const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
+    key: 'color-scheme',
+    defaultValue: 'dark',
+  });
+
+  const toggleColorScheme = () =>
+    setColorScheme((current) => (current === 'dark' ? 'light' : 'dark'));
 
   return (
     <>

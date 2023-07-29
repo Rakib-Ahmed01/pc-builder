@@ -10,25 +10,25 @@ import {
   Title,
 } from '@mantine/core';
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
-import { Product } from '..';
+import { TProduct } from '..';
 import { products } from '../api/products';
 
 export const getStaticPaths: GetStaticPaths = () => {
   return {
-    paths: products.map((p, i) => ({
-      params: { id: i.toString() },
+    paths: products.map((p) => ({
+      params: { id: p.id.toString() },
     })),
     fallback: false,
   };
 };
 
 export const getStaticProps: GetStaticProps<{
-  product: Product;
+  product: TProduct;
 }> = (context) => {
   return {
     props: {
       product: products.filter(
-        (_p, i) => i.toString() === context?.params?.id
+        (p) => p.id.toString() === context?.params?.id
       )[0],
     },
   };
