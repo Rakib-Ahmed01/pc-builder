@@ -9,5 +9,5 @@ export type TProduct = {
   reviews: never[];
   price: number;
   description: string;
-  _id: number;
+  _id: string;
 };

@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from './slices/counterSlice';
+import pcbuilderReducer from './slices/pcbuilder/pcbuilderSlice';
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
+    pcbuilder: pcbuilderReducer,
   },
   devTools: true,
 });
