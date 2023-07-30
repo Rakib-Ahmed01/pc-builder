@@ -5,6 +5,7 @@ import {
   MantineProvider,
 } from '@mantine/core';
 import { useLocalStorage } from '@mantine/hooks';
+import { Notifications } from '@mantine/notifications';
 import { SessionProvider } from 'next-auth/react';
 import { AppProps } from 'next/app';
 import { Karla } from 'next/font/google';
@@ -53,6 +54,7 @@ export default function App(props: AppProps) {
           <SessionProvider session={session}>
             <Provider store={store}>
               <Layout>
+                <Notifications />
                 <Component {...pageProps} />
               </Layout>
             </Provider>

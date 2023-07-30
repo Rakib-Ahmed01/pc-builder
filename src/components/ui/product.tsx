@@ -11,6 +11,7 @@ import {
   Text,
   Title,
 } from '@mantine/core';
+import { notifications } from '@mantine/notifications';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
@@ -42,6 +43,10 @@ const Product = ({
         price: product.price,
       })
     );
+    notifications.show({
+      title: `${product.category} Added`,
+      message: `You've choosen ${product.name}`,
+    });
     router.push('/pc-builder');
   };
 

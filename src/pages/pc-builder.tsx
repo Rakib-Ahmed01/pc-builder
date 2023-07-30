@@ -14,6 +14,8 @@ import {
   Title,
   Tooltip,
 } from '@mantine/core';
+import { notifications } from '@mantine/notifications';
+import { IconCheck } from '@tabler/icons-react';
 import { signIn, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useMemo } from 'react';
@@ -46,6 +48,14 @@ const PCBuilder = ({ categories }: { categories: string[] }) => {
   if (status === 'loading') {
     return <Loader />;
   }
+
+  const handleCompleteBuild = () => {
+    notifications.show({
+      title: 'Complete Build',
+      message: "You've created a awesome build 💻",
+      icon: <IconCheck />,
+    });
+  };
 
   return (
     <Container>
@@ -123,7 +133,7 @@ const PCBuilder = ({ categories }: { categories: string[] }) => {
           </Table>
           <Flex mt={8} justify={'end'}>
             {isSelectedProductsFromEachCategory ? (
-              <Button>Complete Build</Button>
+              <Button onClick={handleCompleteBuild}>Complete Build</Button>
             ) : (
               <Tooltip
                 label={
