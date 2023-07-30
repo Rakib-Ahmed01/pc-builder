@@ -47,7 +47,7 @@ const Product = ({
     );
     notifications.show({
       title: `${product.category} Added`,
-      message: `You've choosen ${product.name}`,
+      message: `You've chosen ${product.name}`,
     });
     router.push('/pc-builder');
   };
