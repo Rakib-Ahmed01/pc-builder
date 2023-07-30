@@ -17,10 +17,15 @@ Responsive Design: The website will be optimized for various devices, including 
 #### Technology Stack:
 
 Front-end: Next.js, React, Redux, Mantine
+
 Authentication: Next Auth
+
 State Management: Redux
+
 Backend/APIs: Node.js API Routes for building APIs
+
 Database: MongoDB
+
 Hosting: Deployed on Vercel
 
 ## Getting Started
