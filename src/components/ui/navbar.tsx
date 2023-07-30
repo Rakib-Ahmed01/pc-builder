@@ -2,6 +2,7 @@ import {
   ActionIcon,
   Affix,
   Avatar,
+  Box,
   Burger,
   Button,
   Container,
@@ -57,14 +58,12 @@ const categories: { link: string; label: string }[] = [
   },
 ];
 
-const categoriesNames = categories.map((c) => c.label);
-
 const HEADER_HEIGHT = rem(60);
 
 const useStyles = createStyles((theme) => ({
   root: {
     position: 'relative',
-    zIndex: 1,
+    zIndex: 10,
   },
   logo: {
     color: theme.colors.blue[6],
@@ -114,7 +113,34 @@ const useStyles = createStyles((theme) => ({
         ? theme.colors.dark[0]
         : theme.colors.gray[7],
     fontSize: theme.fontSizes.sm,
-    // fontWeight: 500,
+
+    '&:hover': {
+      backgroundColor:
+        theme.colorScheme === 'dark'
+          ? theme.colors.dark[6]
+          : theme.colors.gray[0],
+    },
+
+    [theme.fn.smallerThan('sm')]: {
+      borderRadius: 0,
+      padding: theme.spacing.md,
+    },
+    [theme.fn.largerThan('sm')]: {
+      fontSize: theme.fontSizes.md,
+      fontWeight: 600,
+    },
+  },
+
+  linkAlike: {
+    lineHeight: 1,
+    padding: `${rem(8)} ${rem(12)}`,
+    borderRadius: theme.radius.sm,
+    textDecoration: 'none',
+    color:
+      theme.colorScheme === 'dark'
+        ? theme.colors.dark[0]
+        : theme.colors.gray[7],
+    fontSize: theme.fontSizes.sm,
 
     '&:hover': {
       backgroundColor:
@@ -213,57 +239,62 @@ const Navbar = () => {
         Products
       </Link>
 
-      <Menu
-        width={140}
-        trigger="hover"
-        key={'menu'}
-        withinPortal
-        position="top-start"
-      >
-        <Menu.Target>
-          <Flex align={'center'} gap={4} style={{ cursor: 'pointer' }}>
-            <Text fw={400}>Categories</Text>
-            <IconChevronDown size={15} />
-          </Flex>
-        </Menu.Target>
-        <Menu.Dropdown>
-          {categories.map((category) => (
-            <Menu.Item
-              key={category.label}
-              component={Link}
-              href={category.link}
-              className={cx(classes.link, {
-                [classes.linkActive]:
-                  active.toLowerCase() ===
-                  category.label.toLowerCase().replace(' ', '-'),
-              })}
-              style={{ fontWeight: 400 }}
-              onClick={() => {
-                setActive(category.label);
-                close();
-              }}
-            >
-              {category.label}
-            </Menu.Item>
-          ))}
-        </Menu.Dropdown>
-      </Menu>
+      <Box className={classes.linkAlike}>
+        <Menu
+          width={140}
+          trigger="hover"
+          key={'menu'}
+          withinPortal
+          position="top-start"
+        >
+          <Menu.Target>
+            <Flex align={'center'} gap={4} style={{ cursor: 'pointer' }}>
+              <Text fw={400}>Categories</Text>
+              <IconChevronDown size={15} />
+            </Flex>
+          </Menu.Target>
+          <Menu.Dropdown>
+            {categories.map((category) => (
+              <Menu.Item
+                key={category.label}
+                component={Link}
+                href={category.link}
+                className={cx(classes.link, {
+                  [classes.linkActive]:
+                    active.toLowerCase() ===
+                    category.label.toLowerCase().replace(' ', '-'),
+                })}
+                style={{ fontWeight: 400 }}
+                onClick={() => {
+                  setActive(category.label);
+                  close();
+                }}
+              >
+                {category.label}
+              </Menu.Item>
+            ))}
+          </Menu.Dropdown>
+        </Menu>
+      </Box>
       {data?.user ? (
-        <>
-          <Group spacing={6}>
-            <Avatar
-              src={data.user.image}
-              alt={data.user.name as string}
-              radius={'xl'}
-              size={25}
-            />
-            <Text>{data.user.name}</Text>
-          </Group>
+        <Group spacing={6} className={classes.linkAlike}>
+          <Avatar
+            src={data.user.image}
+            alt={data.user.name as string}
+            radius={'xl'}
+            size={25}
+          />
+          <Text>{data.user.name}</Text>
+        </Group>
+      ) : null}
+
+      <Box className={classes.linkAlike}>
+        {data?.user ? (
           <Button onClick={() => signOut({ redirect: false })}>Sign Out</Button>
-        </>
-      ) : (
-        <Button onClick={() => signIn()}>Sign In</Button>
-      )}
+        ) : (
+          <Button onClick={() => signIn()}>Sign In</Button>
+        )}
+      </Box>
     </>
   );
 
