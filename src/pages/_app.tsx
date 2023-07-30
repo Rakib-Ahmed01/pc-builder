@@ -9,6 +9,8 @@ import { SessionProvider } from 'next-auth/react';
 import { AppProps } from 'next/app';
 import { Karla } from 'next/font/google';
 import Head from 'next/head';
+import { Provider } from 'react-redux';
+import { store } from './store/store';
 
 const karla = Karla({ subsets: ['latin'] });
 
@@ -49,9 +51,11 @@ export default function App(props: AppProps) {
           }}
         >
           <SessionProvider session={session}>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
+            <Provider store={store}>
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </Provider>
           </SessionProvider>
         </MantineProvider>
       </ColorSchemeProvider>
