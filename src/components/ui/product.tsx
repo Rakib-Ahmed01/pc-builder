@@ -1,5 +1,5 @@
-import { addProduct } from '@/pages/store/slices/pcbuilder/pcbuilderSlice';
-import { RootState } from '@/pages/store/store';
+import { addProduct } from '@/store/slices/pcbuilder/pcbuilderSlice';
+import { RootState } from '@/store/store';
 import { TProduct } from '@/types/product';
 import {
   Badge,
@@ -12,6 +12,7 @@ import {
   Title,
 } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
@@ -29,6 +30,7 @@ const Product = ({
   const selectedProducts = useSelector((state: RootState) => state.pcbuilder);
   const dispatch = useDispatch();
   const router = useRouter();
+  const { data } = useSession();
 
   const selectedProductsIds = useMemo(() => {
     return selectedProducts.slice().map((p) => p.id);
@@ -83,6 +85,10 @@ const Product = ({
         ) : selectedProductsIds.includes(product._id) ? (
           <Button fw={400} variant="light">
             Product is already added
+          </Button>
+        ) : !data?.user ? (
+          <Button fw={400} variant="light">
+            Sign In To Add To PC Builder
           </Button>
         ) : (
           <Button fw={400} onClick={() => handleAddProduct(product)}>

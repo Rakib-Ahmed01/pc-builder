@@ -9,7 +9,6 @@ import {
   Flex,
   Group,
   Header,
-  Loader,
   Menu,
   Paper,
   Text,
@@ -30,6 +29,7 @@ import { signIn, signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import Spinner from './spinner';
 
 const categories: { link: string; label: string }[] = [
   {
@@ -194,7 +194,7 @@ const Navbar = () => {
   }, [asPath]);
 
   if (status === 'loading') {
-    return <Loader top={'50%'} pos={'absolute'} right={'50%'} z={100} />;
+    return <Spinner />;
   }
 
   const items = (

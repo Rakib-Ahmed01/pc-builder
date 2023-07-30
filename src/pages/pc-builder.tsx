@@ -1,3 +1,5 @@
+import Spinner from '@/components/ui/spinner';
+import { RootState } from '@/store/store';
 import { getCategories } from '@/util/products';
 import {
   Badge,
@@ -7,7 +9,6 @@ import {
   Divider,
   Flex,
   Group,
-  Loader,
   Stack,
   Table,
   Text,
@@ -20,7 +21,6 @@ import { signIn, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import { RootState } from './store/store';
 
 export const getServerSideProps = async () => {
   const categories = await getCategories();
@@ -46,7 +46,7 @@ const PCBuilder = ({ categories }: { categories: string[] }) => {
   }, [selectedProducts]);
 
   if (status === 'loading') {
-    return <Loader />;
+    return <Spinner />;
   }
 
   const handleCompleteBuild = () => {

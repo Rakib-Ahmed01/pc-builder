@@ -1,4 +1,5 @@
 import Layout from '@/components/layout';
+import { store } from '@/store/store';
 import {
   ColorScheme,
   ColorSchemeProvider,
@@ -11,7 +12,6 @@ import { AppProps } from 'next/app';
 import { Karla } from 'next/font/google';
 import Head from 'next/head';
 import { Provider } from 'react-redux';
-import { store } from './store/store';
 
 const karla = Karla({ subsets: ['latin'] });
 
